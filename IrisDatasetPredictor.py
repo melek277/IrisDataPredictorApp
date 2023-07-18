@@ -174,6 +174,35 @@ if button :
         st.write("Versicolor")
     else:
         st.write("Virginica")
+    from sklearn.metrics import accuracy_score
+    acc = accuracy_score(y_test, y_pred)
+
+    st.write(f'Accuracy =', acc)
+
+    st.write("Classification Report")
+
+    from sklearn.metrics import classification_report
+
+    report_string = classification_report(y_test, y_pred)
+    report_lines = report_string.split('\n')
+    data = []
+    for line in report_lines[2:-3]:  # Skip the first and last lines
+        row_data = line.split()
+        if len(row_data) >= 5:
+            row_name = row_data[0]
+            row_values = [float(x) for x in row_data[1:]]
+            data.append([row_name] + row_values)
+
+    # Create a DataFrame
+    columns = ['Class', 'Precision', 'Recall', 'F1-Score', 'Support']
+    df_report = pd.DataFrame(data, columns=columns)
+
+    # Set the 'Class' column as the index
+    df_report.set_index('Class', inplace=True)
+
+    # Optionally, you can round the values for better presentation
+    df_report = df_report.round(2)
+    df_report
         
     
 
