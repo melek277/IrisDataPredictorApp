@@ -6,6 +6,11 @@
 
 import streamlit as st 
 
+st.set_page_config(
+    page_title="Iris Flowers Predictor",
+    page_icon="🌸",
+)
+
 
 # In[2]:
 
